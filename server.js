@@ -144,6 +144,7 @@ io.on("connection", (socket) => {
 
       if (generatedImage) {
         currentImage = generatedImage;
+        io.emit("clearCanvas");
         io.emit("generatedImage", generatedImage);
         console.log("Immagine generata e inviata a tutti i client");
       } else {
@@ -166,7 +167,6 @@ io.on("connection", (socket) => {
 
   // Pulizia canvas
   socket.on("clearCanvas", () => {
-    currentImage = null;
     io.emit("clearCanvas");
   });
 

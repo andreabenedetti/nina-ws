@@ -41,6 +41,10 @@ function setup() {
       console.log("Colore assegnato:", color);
     });
 
+    socket.on("clearCanvas", () => {
+      clear(); // Pulisce il canvas locale
+    });
+
     socket.on("generatedImage", async (imageUrl) => {
       document.getElementById("status").textContent =
         "Nuova immagine generata dall'AI!";
