@@ -23,7 +23,7 @@ function setup() {
     console.log("Background color:", bgColor);
 
     // Connessione socket
-    socket = io("https://andreabenedetti.github.io/nina-ws/");
+    socket = io("https://nina-ws.onrender.com");
     console.log("Socket inizializzato");
 
     // Ricevi tratti dagli altri utenti
@@ -33,7 +33,9 @@ function setup() {
     });
 
     socket.on("connect", () => console.log("Connesso al server Socket.IO!"));
-    socket.on("disconnect", () => console.log("Disconnesso dal server Socket.IO!"));
+    socket.on("disconnect", () =>
+      console.log("Disconnesso dal server Socket.IO!"),
+    );
 
     socket.on("assignColor", (color) => {
       userColor = color;
@@ -161,15 +163,20 @@ function setup() {
 }
 
 function draw() {
-    background(bgColor[0], bgColor[1], bgColor[2]);
-    if (currentImage) {
-      image(currentImage, 0, 0, width, height);
-    }
-    for (let drawing of allDrawings) {
-      fill(drawing.color[0], drawing.color[1], drawing.color[2], drawing.color[3] || 255);
-      noStroke();
-      circle(drawing.x, drawing.y, 50);
-    }
+  background(bgColor[0], bgColor[1], bgColor[2]);
+  if (currentImage) {
+    image(currentImage, 0, 0, width, height);
+  }
+  for (let drawing of allDrawings) {
+    fill(
+      drawing.color[0],
+      drawing.color[1],
+      drawing.color[2],
+      drawing.color[3] || 255,
+    );
+    noStroke();
+    circle(drawing.x, drawing.y, 50);
+  }
 }
 
 function drawLocal(data) {
