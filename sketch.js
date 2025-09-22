@@ -10,13 +10,12 @@ const bgColor = [
   255,
 ];
 let allDrawings = [];
-
 console.log("Script caricato!");
 
 function setup() {
   console.log("Setup iniziato!");
   try {
-    canvas = createCanvas(windowWidth, windowWidth);
+    canvas = createCanvas(430, 430);
     canvas.position(0, 100);
     background(bgColor[0], bgColor[1], bgColor[2]);
     console.log("Canvas creato!", canvas);
@@ -67,7 +66,7 @@ function setup() {
     function startDrawing(event) {
       isDrawing = true;
       console.log("Drawing started");
-      event.preventDefault(); // Evita il comportamento predefinito del touch
+      event.preventDefault();
     }
 
     // Funzione per gestire la fine del disegno (mouse o touch)
@@ -93,10 +92,9 @@ function setup() {
           const touch = event.touches[0];
           x = touch.clientX - canvas.elt.getBoundingClientRect().left;
           y = touch.clientY - canvas.elt.getBoundingClientRect().top;
-          px = x - event.deltaX;
-          py = y - event.deltaY;
+          px = x - (event.touches[0].clientX - event.touches[0].clientX);
+          py = y - (event.touches[0].clientY - event.touches[0].clientY);
         }
-
         const data = {
           x: x,
           y: y,
@@ -135,26 +133,20 @@ function setup() {
 
     // Bottone per generare immagine AI
     document.getElementById("generateButton").addEventListener("click", () => {
-      redraw();
-      clear();
-      allDrawings = [];
       const prompt = document.getElementById("promptInput").value;
       const imageBase64 = canvas.elt.toDataURL("image/png").split(",")[1];
+      console.log(
+        "Immagine inviata a Replicate (lunghezza base64):",
+        imageBase64.length,
+      ); // Debug
+
+      // Invia l'immagine a Replicate tramite il backend
       socket.emit("generateImage", { image: imageBase64, prompt });
       document.getElementById("status").textContent =
         "Generazione immagine in corso...";
-    });
 
-    // Bottone per pulire il canvas
-    const clearButton = document.getElementById("clearButton");
-    if (clearButton) {
-      clearButton.addEventListener("click", () => {
-        currentImage = null;
-        allDrawings = [];
-        socket.emit("clearCanvas");
-        redraw();
-      });
-    }
+      // NON cancellare il canvas qui! Attendi la risposta da Replicate
+    });
 
     console.log("Setup completato!");
   } catch (error) {
@@ -195,5 +187,6 @@ function sendCanvasImage() {
   console.log("Invio immagine aggiornata al server...");
   redraw();
   const imageBase64 = canvas.elt.toDataURL("image/png").split(",")[1];
+  console.log("Lunghezza base64:", imageBase64.length); // Debug
   socket.emit("canvasImage", imageBase64);
 }
