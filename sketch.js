@@ -185,7 +185,7 @@ function drawRemote(data) {
 
 function sendCanvasImage() {
   console.log("Invio immagine aggiornata al server...");
-  redraw();
+  //redraw();
   const imageBase64 = canvas.elt.toDataURL("image/png").split(",")[1];
   console.log("Lunghezza base64:", imageBase64.length); // Debug
   socket.emit("canvasImage", imageBase64);
