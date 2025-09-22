@@ -23,7 +23,7 @@ function setup() {
     console.log("Background color:", bgColor);
 
     // Connessione socket
-    socket = io("https://famous-pans-pick.loca.lt");
+    socket = io("https://andreabenedetti.github.io/nina-ws/");
     console.log("Socket inizializzato");
 
     // Ricevi tratti dagli altri utenti
