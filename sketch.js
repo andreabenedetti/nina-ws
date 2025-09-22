@@ -49,6 +49,7 @@ function setup() {
         img.crossOrigin = "anonymous";
         img.src = imageUrl;
         img.onload = () => {
+          clear();
           currentImage = createImage(img.width, img.height);
           currentImage.drawingContext.drawImage(img, 0, 0);
           redraw();
@@ -144,10 +145,10 @@ function setup() {
       // Solo per debug: mostra l'immagine catturata
       const testImage = new Image();
       testImage.src = `data:image/png;base64,${imageBase64}`;
-      testImage.style.position = "absolute";
-      testImage.style.top = "0";
-      testImage.style.left = "0";
-      testImage.style.width = "200px";
+      // testImage.style.position = "absolute";
+      // testImage.style.top = "0";
+      // testImage.style.left = "0";
+      testImage.style.width = "100px";
       document.body.appendChild(testImage);
 
       // Invia l'immagine a Replicate
