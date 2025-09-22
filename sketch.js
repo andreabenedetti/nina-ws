@@ -16,7 +16,7 @@ function setup() {
   console.log("Setup iniziato!");
   try {
     canvas = createCanvas(430, 430);
-    canvas.position(0, 100);
+    canvas.position(windowWidth / 2 - 430 / 2, 200);
     background(bgColor[0], bgColor[1], bgColor[2]);
     console.log("Canvas creato!", canvas);
     console.log("Background color:", bgColor);
@@ -133,19 +133,31 @@ function setup() {
 
     // Bottone per generare immagine AI
     document.getElementById("generateButton").addEventListener("click", () => {
+      // Ridisegna tutto sul canvas
+      redraw();
+
+      // Cattura l'immagine dal canvas
       const prompt = document.getElementById("promptInput").value;
       const imageBase64 = canvas.elt.toDataURL("image/png").split(",")[1];
-      console.log(
-        "Immagine inviata a Replicate (lunghezza base64):",
-        imageBase64.length,
-      ); // Debug
+      console.log("Lunghezza base64:", imageBase64.length); // Debug
 
-      // Invia l'immagine a Replicate tramite il backend
+      // Solo per debug: mostra l'immagine catturata
+      const testImage = new Image();
+      testImage.src = `data:image/png;base64,${imageBase64}`;
+      testImage.style.position = "absolute";
+      testImage.style.top = "0";
+      testImage.style.left = "0";
+      testImage.style.width = "200px";
+      document.body.appendChild(testImage);
+
+      // Invia l'immagine a Replicate
       socket.emit("generateImage", { image: imageBase64, prompt });
       document.getElementById("status").textContent =
         "Generazione immagine in corso...";
 
-      // NON cancellare il canvas qui! Attendi la risposta da Replicate
+      // Cancella il canvas DOPO aver inviato l'immagine
+      clear();
+      allDrawings = [];
     });
 
     console.log("Setup completato!");
