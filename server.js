@@ -180,6 +180,14 @@ server.on("error", (err) => {
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () =>
-  console.log(`Server in ascolto su http://localhost:${PORT}`),
-);
+const HOST =
+  process.env.NODE_ENV === "production"
+    ? "0.0.0.0" // Render (o qualsiasi altro servizio) usa 0.0.0.0 per ascoltare su tutte le interfacce
+    : "localhost";
+server.listen(PORT, HOST, () => {
+  const url =
+    process.env.NODE_ENV === "production"
+      ? `https://nina-ws.onrender.com`
+      : `http://${HOST}:${PORT}`;
+  console.log(`Server in ascolto su ${url}`);
+});
