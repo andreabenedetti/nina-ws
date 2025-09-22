@@ -79,6 +79,7 @@ async function generateImageWithAI(imageBase64, prompt) {
     const imageDataUri = `data:image/png;base64,${imageBase64}`;
 
     console.log("Invio richiesta a Replicate...");
+    console.log(imageDataUri);
     const res = await axios.post(
       "https://api.replicate.com/v1/predictions",
       {
