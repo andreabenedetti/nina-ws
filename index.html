@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Collaborative Drawing with AI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
+        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            #promptInput,
+            #generateButton,
+            #status {
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <input
+            type="text"
+            id="promptInput"
+            placeholder="Cambia prompt..."
+            value="a landscape with the style of..."
+        />
+        <button id="generateButton">Genera</button>
+        <p id="status">...</p>
+        <script src="sketch.js"></script>
+    </body>
+</html>
