@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>Collaborative Drawing with AI</title>
+        <title>NINA</title>
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"
@@ -20,21 +20,27 @@
                 padding: 0;
             }
 
-            #canvas {
+            main {
                 text-align: center;
             }
 
             canvas {
-                margin: 10px;
+                margin: auto;
                 max-width: 100%;
                 height: auto;
             }
+
+            @media only screen and (max-width: 600px) {
+                #generateButton {
+                    display: none;
+                }
+            }
         </style>
     </head>
-    <body>
-        <div class="container mt-5">
+    <body data-bs-theme="dark">
+        <div class="container mt-5" data-bs-theme="dark">
             <div class="mb-3">
-                <form class="form-floating">
+                <form class="form-floating" data-bs-theme="dark">
                     <input
                         type="text"
                         class="form-control"

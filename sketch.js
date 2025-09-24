@@ -16,7 +16,7 @@ function setup() {
   console.log("Setup iniziato!");
   try {
     canvas = createCanvas(430, 430);
-    canvas.position(windowWidth / 2 - 430 / 2, 200);
+    //canvas.position(windowWidth / 2 - 430 / 2, 200);
     background(bgColor[0], bgColor[1], bgColor[2]);
     console.log("Canvas creato!", canvas);
     console.log("Background color:", bgColor);
