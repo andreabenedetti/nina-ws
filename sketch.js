@@ -16,7 +16,6 @@ function setup() {
   console.log("Setup iniziato!");
   try {
     canvas = createCanvas(430, 430);
-    //canvas.position(windowWidth / 2 - 430 / 2, 200);
     background(bgColor[0], bgColor[1], bgColor[2]);
     console.log("Canvas creato!", canvas);
     console.log("Background color:", bgColor);
@@ -54,6 +53,7 @@ function setup() {
         img.src = imageUrl;
         img.onload = () => {
           clear();
+          allDrawings = [];
           currentImage = createImage(img.width, img.height);
           currentImage.drawingContext.drawImage(img, 0, 0);
           redraw();
@@ -149,9 +149,6 @@ function setup() {
       // Solo per debug: mostra l'immagine catturata
       const testImage = new Image();
       testImage.src = `data:image/png;base64,${imageBase64}`;
-      // testImage.style.position = "absolute";
-      // testImage.style.top = "0";
-      // testImage.style.left = "0";
       testImage.style.width = "100px";
       document.body.appendChild(testImage);
 
